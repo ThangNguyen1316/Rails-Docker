@@ -3,11 +3,15 @@
 FROM ruby:3.0.2
 # We specify everything will happen within the /app folder inside the container
 WORKDIR /app
+#update OS and install some tools 
+RUN apt-get update && apt-get install -y nodejs postgresql-client
 # We copy these files from our current application to the /app container
 COPY Gemfile Gemfile.lock ./
 # We install all the dependencies
 RUN bundle install
 # We copy all the files from our current application to the /app container
+RUN rails db:setup
+# run rails db:setup in docker container
 COPY . .
 # We expose the port
 EXPOSE 3000
