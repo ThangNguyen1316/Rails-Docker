@@ -9,9 +9,9 @@ RUN apt-get update && apt-get install -y nodejs postgresql-client
 COPY Gemfile Gemfile.lock ./
 # We install all the dependencies
 RUN bundle install
-# We copy all the files from our current application to the /app container
-RUN rails db:setup
 # run rails db:setup in docker container
+RUN rails db:setup
+# We copy all the files from our current application to the /app container
 COPY . .
 # We expose the port
 EXPOSE 3000
